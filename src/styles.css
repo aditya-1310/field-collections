@@ -2436,9 +2436,15 @@ td {
   .work-table-head {
     grid-template-columns: 1.3fr 0.9fr 0.8fr 12px;
   }
-  .case-reasons,
   .work-table-head > span:nth-child(3) {
     display: none;
+  }
+  .case-reasons {
+    grid-column: 1/-1;
+    grid-row: 2;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px 14px;
   }
   .section-heading {
     align-items: flex-start;
@@ -2728,9 +2734,6 @@ td {
     font-size: 10px;
     padding-left: 36px;
     gap: 4px;
-  }
-  .case-reasons > span:nth-child(3) {
-    display: none;
   }
   .case-arrow {
     position: absolute;
@@ -3286,9 +3289,6 @@ td {
   .detail-form select,
   .detail-form textarea {
     font-size: 16px;
-  }
-  .case-reasons > span:nth-child(3) {
-    display: flex;
   }
   .detail-contact > span {
     flex-wrap: wrap;

@@ -96,6 +96,7 @@ function orderGroup(rows: Loan[], today: string) {
         reasons.push(
           loan.group === 'early' ? 'Early overdue group' : 'Recovery group',
         );
+        if (reasons.length < 3) reasons.push('Follow-up due today');
         loan.reasons = reasons.slice(0, 3);
         ordered.push(loan);
       }

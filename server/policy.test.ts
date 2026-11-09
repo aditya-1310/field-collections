@@ -94,6 +94,14 @@ describe('collection work ordering', () => {
       rankLoans([loan('A', 30), loan('B', 60)], 'recovery', now)[0].id,
     ).toBe('B');
   });
+  it('shows three factual reasons for a due case with no promise or late history', () => {
+    const [row] = rankLoans([loan('A', 29)], 'early', now);
+    expect(row.reasons).toEqual([
+      '29 days past due',
+      'Early overdue group',
+      'Follow-up due today',
+    ]);
+  });
   it('keeps stale, held and scheduled cases visible without a current rank', () => {
     const future = { ...broken('F'), status: 'active', due_date: '2026-11-10' };
     const rows = rankLoans(
