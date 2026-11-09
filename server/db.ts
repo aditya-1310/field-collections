@@ -25,7 +25,9 @@ pg.types.setTypeParser(1082, (value) => value);
 
 export function createDb(options: { memory?: boolean; connectionString?: string; dataDir?: string } = {}): Database {
   if (options.connectionString && !options.memory) {
-    const pool = new pg.Pool({ connectionString: options.connectionString, max: 5, connectionTimeoutMillis: 12000 });
+    const url = new URL(options.connectionString);
+    if (url.searchParams.get('sslmode') === 'require') url.searchParams.set('sslmode', 'verify-full');
+    const pool = new pg.Pool({ connectionString: url.toString(), max: 5, connectionTimeoutMillis: 12000 });
     pool.on('error', (error) => console.error('Idle database connection closed', { code: (error as { code?: string }).code }));
     const pgSql = (client: pg.Pool | pg.PoolClient): Sql => ({
       async query<T>(statement: string, params?: unknown[]) {

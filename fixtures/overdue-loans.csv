@@ -1,0 +1,4 @@
+loan_id,borrower_id,borrower_name,branch_code,pincode,phone,address,language,dpd,outstanding_amount,overdue_amount,late_installments
+LN-13001,BOR-CSV-1,Shakti Industrial Supply,IND-C,452001,+910000000031,Demo market sector 31 Indore,hi,28,340000,17000,2
+LN-13002,BOR-CSV-2,Vidya Packaging,IND-C,452003,+910000000032,Demo market sector 32 Indore,en,33,460000,23000,1
+LN-13003,BOR-CSV-3,Gulmohar Machine Works,IND-C,452010,+910000000033,Demo market sector 33 Indore,hi,14,250000,12500,0

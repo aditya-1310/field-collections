@@ -129,6 +129,12 @@ CREATE TABLE IF NOT EXISTS priority_overrides (
   ordering_facts jsonb NOT NULL DEFAULT '{}'::jsonb,
   reason text NOT NULL, created_at timestamptz NOT NULL DEFAULT now(), PRIMARY KEY(officer_id,work_date)
 );
+CREATE TABLE IF NOT EXISTS priority_override_history (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(), officer_id uuid NOT NULL REFERENCES users(id),
+  manager_id uuid NOT NULL REFERENCES users(id), work_date date NOT NULL, loan_ids jsonb NOT NULL,
+  ordering_facts jsonb NOT NULL DEFAULT '{}'::jsonb, reason text NOT NULL,
+  created_at timestamptz NOT NULL DEFAULT now()
+);
 CREATE TABLE IF NOT EXISTS priority_runs (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(), officer_id uuid NOT NULL REFERENCES users(id),
   branch_id uuid NOT NULL REFERENCES branches(id), work_date date NOT NULL, policy_version text NOT NULL,
