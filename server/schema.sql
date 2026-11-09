@@ -153,3 +153,9 @@ CREATE TABLE IF NOT EXISTS weekly_review_members (
   baseline_dpd integer NOT NULL, baseline_overdue numeric(15,2) NOT NULL, synthetic boolean NOT NULL DEFAULT false,
   PRIMARY KEY(week_start,loan_id)
 );
+CREATE TABLE IF NOT EXISTS weekly_report_revisions (
+  branch_id uuid NOT NULL REFERENCES branches(id), week_start date NOT NULL,
+  revision integer NOT NULL CHECK (revision>0), fingerprint text NOT NULL, report jsonb NOT NULL,
+  created_at timestamptz NOT NULL DEFAULT now(), PRIMARY KEY(branch_id,week_start,revision),
+  UNIQUE(branch_id,week_start,fingerprint)
+);

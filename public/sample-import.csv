@@ -1,0 +1,3 @@
+loan_id,borrower_id,borrower_name,branch_code,pincode,phone,address,language,dpd,outstanding_amount,overdue_amount,late_installments
+DEMO-NEW-001,DEMO-BORROWER-901,Aarav Demo,IND-C,452001,9000000901,"Demo address Indore",hi,19,250000,8500,1
+DEMO-NEW-002,DEMO-BORROWER-902,Meera Demo,IND-C,452003,9000000902,"Demo address Indore",en,35,175000,12000,2

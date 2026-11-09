@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "concurrently -k \"tsx watch server/index.ts\" \"vite --host 127.0.0.1\"",
     "build": "tsc --noEmit && vite build",
@@ -17,7 +19,7 @@
     "@electric-sql/pglite": "^0.3.14",
     "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",
-    "csv-parse": "^6.1.0",
+    "csv-parse": "^7.0.3",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "express-rate-limit": "^8.2.1",
