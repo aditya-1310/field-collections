@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+.data/
+.private/
+coverage/
+test-results/
+playwright-report/
+*.log
+docs/excalidraw-board-backup.excalidraw
+docs/priority-review/
+docs/schema-diagram.excalidraw
+
