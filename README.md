@@ -22,6 +22,7 @@ Use [the example CSV](fixtures/overdue-loans.csv) to try the import. For offline
 
 ## Project notes
 
+- [View the database schema in Excalidraw](https://excalidraw.com/#url=https://raw.githubusercontent.com/aditya-1310/field-collections/main/docs/database-schema.excalidraw)
 - [Technical design](docs/technical-design.md)
 - [Implementation decisions and code references](docs/decisions.md)
 - [Priority policy and worked examples](docs/priority-policy-final.md)
