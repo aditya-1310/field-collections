@@ -1,4 +1,4 @@
-import { useRef, useState, type FormEvent } from 'react';
+import { useRef, useState, type FormEvent, type ReactNode } from 'react';
 import {
   ArrowDown,
   ArrowRight,
@@ -488,11 +488,11 @@ export function Overview({
         />
         <Stat
           label="Manager review"
-          value={totals?.open_conflicts ?? '—'}
+          value={loans.filter((loan) => loan.hold_reason).length}
           caption={
-            totals
-              ? `${totals.unassigned} cases also need an officer`
-              : 'Offline changes needing a decision'
+            <TextLink onClick={() => onNavigate('review')}>
+              View cases needing review
+            </TextLink>
           }
         />
       </div>
@@ -635,7 +635,7 @@ function Stat({
 }: {
   label: string;
   value: string | number;
-  caption: string;
+  caption: ReactNode;
   accent?: boolean;
   warning?: boolean;
 }) {
@@ -895,13 +895,12 @@ export function LoanDialog({
         <Sparkles size={17} />
         <div>
           <strong>Why it is here</strong>
-          {current.reasons.length ? (
+          {current.hold_reason ? (
+            <p>{current.hold_reason}</p>
+          ) : current.reasons.length ? (
             <p>{current.reasons.join(' · ')}</p>
           ) : (
-            <p>
-              {current.hold_reason ||
-                'This case has no current queue position.'}
-            </p>
+            <p>This case has no current queue position.</p>
           )}
         </div>
       </div>
@@ -1952,14 +1951,19 @@ export function ReorderDialog({
 }
 
 export function Review({
+  loans,
   online,
   revision,
   onRefresh,
+  onOpen,
 }: {
+  loans: Loan[];
   online: boolean;
   revision: number;
   onRefresh: () => void;
+  onOpen: (loan: Loan) => void;
 }) {
+  const heldCases = loans.filter((loan) => loan.hold_reason);
   const conflicts = useRemote<{ conflicts: Conflict[] }>(
     '/conflicts',
     online,
@@ -2004,8 +2008,36 @@ export function Review({
       <SectionTitle
         eyebrow="HUMAN JUDGMENT, IN THE LOOP"
         title="Review what matters."
-        description="Resolve conflicting updates and see how priorities compared with payments."
+        description="Open held cases, resolve conflicting updates, and compare priorities with payments."
       />
+      <section className="panel">
+        <PanelHeading
+          title="Cases needing review"
+          meta={`${heldCases.length} held cases`}
+        />
+        <div className="overview-cases">
+          {heldCases.length ? (
+            heldCases.map((loan) => (
+              <button
+                className="compact-case"
+                key={loan.id}
+                onClick={() => onOpen(loan)}
+              >
+                <div className="avatar small">
+                  {loan.borrower_name.slice(0, 1)}
+                </div>
+                <div className="grow">
+                  <strong>{loan.borrower_name}</strong>
+                  <small>{loan.external_loan_id} · {loan.hold_reason}</small>
+                </div>
+                <ChevronRight size={16} />
+              </button>
+            ))
+          ) : (
+            <Empty title="No cases needing review" />
+          )}
+        </div>
+      </section>
       <div className="tabs standalone-tabs">
         <button
           className={tab === 'conflicts' ? 'active' : ''}

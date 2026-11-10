@@ -649,9 +649,11 @@ export default function App() {
           )}
           {view === 'review' && manager && (
             <Review
+              loans={loans}
               online={online}
               revision={revision}
               onRefresh={() => void refresh()}
+              onOpen={(loan) => setSelected(loan.id)}
             />
           )}
           <footer className="workspace-footer">
